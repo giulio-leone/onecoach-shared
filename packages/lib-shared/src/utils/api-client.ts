@@ -104,7 +104,7 @@ export async function fetchAPI<T>(url: string, options?: FetchOptions): Promise<
         return JSON.parse(text);
       } catch (_error: unknown) {
         // If parsing fails, return text as data
-        return text as unknown as T;
+        return text as T;
       }
     }
   } catch (error: unknown) {

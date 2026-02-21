@@ -21,6 +21,10 @@ import type {
   PlanMetadata,
   ExecutionMetadata,
   CheckpointMetadata,
+  WorkoutProgram,
+  WorkoutWeek,
+  WorkoutSession,
+  NutritionPlan,
 } from '@onecoach/types';
 import {
   isSetJson,
@@ -151,46 +155,73 @@ export function convertDecimalToNumber(
 }
 
 /**
- * Converte un valore JSON-serializzabile in Prisma.InputJsonValue type-safe
- * Elimina la necessità di usare 'as unknown as Prisma.InputJsonValue'
+ * Converte un valore JSON-serializzabile in Prisma.InputJsonValue type-safe.
+ *
+ * Questa è l'UNICA boundary tra i tipi di dominio e il type system di Prisma.
+ * Elimina la necessità di usare 'as unknown as Prisma.InputJsonValue' in tutto il codebase.
+ *
+ * @param value - Valore JSON-serializzabile
+ * @returns Prisma.InputJsonValue type-safe
  */
 export function toPrismaJsonValue(
-  value: string | number | boolean | null | Record<string, unknown> | unknown[]
+  value: unknown
 ): Prisma.InputJsonValue {
-  // Prisma.InputJsonValue accetta: string | number | boolean | null | JsonObject | JsonArray
-  // dove JsonObject = { [x: string]: JsonValue } e JsonArray = JsonValue[]
+  if (value === null || value === undefined) {
+    // Prisma 7: InputJsonValue excludes null.
+    // Non-nullable JSON fields should not receive null; return empty object as safe fallback.
+    return {};
+  }
   if (
-    value === null ||
     typeof value === 'string' ||
     typeof value === 'number' ||
     typeof value === 'boolean'
   ) {
-    return value as Prisma.InputJsonValue;
+    return value;
   }
   if (Array.isArray(value)) {
-    return value.map((v) => toPrismaJsonValue(v as Record<string, unknown> | unknown[] | string | number | boolean | null)) as unknown as Prisma.InputJsonValue;
+    const arr: Prisma.InputJsonValue[] = [];
+    for (const item of value) {
+      arr.push(coerceToInputJson(item));
+    }
+    return arr;
   }
   if (typeof value === 'object' && value !== null) {
-    const obj: Record<string, Prisma.JsonValue> = {};
+    // Object case: build a Prisma-compatible object
+    const obj: Record<string, Prisma.InputJsonValue> = {};
     for (const [key, val] of Object.entries(value)) {
-      obj[key] = toPrismaJsonValue(val as Record<string, unknown> | unknown[] | string | number | boolean | null) as Prisma.JsonValue;
+      if (val !== undefined) {
+        obj[key] = coerceToInputJson(val);
+      }
     }
     return obj;
   }
-  // Fallback: serializza come string
-  return JSON.stringify(value);
+  // Fallback for unexpected types
+  return JSON.parse(JSON.stringify(value)) as Prisma.InputJsonValue;
 }
 
 /**
- * Converte un valore nullable in Prisma.NullableJsonNullValueInput
+ * Internal helper: coerce unknown value to Prisma.InputJsonValue.
+ * Handles the recursive type narrowing without 'as unknown as'.
+ */
+function coerceToInputJson(val: unknown): Prisma.InputJsonValue {
+  if (val === null || val === undefined) return {};
+  if (typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean') return val;
+  if (Array.isArray(val)) return toPrismaJsonValue(val);
+  if (typeof val === 'object') return toPrismaJsonValue(val as Record<string, unknown>);
+  return String(val);
+}
+
+/**
+ * Converte un valore nullable in Prisma.NullableJsonNullValueInput.
+ * Usa Prisma.JsonNull per rappresentare null nel database.
  */
 export function toNullablePrismaJsonValue(
   value: string | number | boolean | null | Record<string, unknown> | unknown[] | undefined
-): Prisma.NullableJsonNullValueInput {
+): Prisma.InputJsonValue | typeof Prisma.JsonNull {
   if (value === null || value === undefined) {
     return Prisma.JsonNull;
   }
-  return toPrismaJsonValue(value) as unknown as Prisma.NullableJsonNullValueInput;
+  return toPrismaJsonValue(value);
 }
 
 /**
@@ -264,6 +295,21 @@ export function toJsonObject(json: Prisma.JsonValue | null | undefined): Record<
   }
 
   return json as Record<string, unknown>;
+}
+
+/**
+ * Converte un Prisma JsonValue in un tipo di dominio specifico.
+ * Usa runtime check per garantire che il valore sia un object,
+ * poi asserisce il tipo T (trusted boundary Prisma → dominio).
+ *
+ * @param json - JsonValue da Prisma
+ * @returns T o null se non è un oggetto valido
+ */
+export function fromPrismaJson<T>(json: Prisma.JsonValue | null | undefined): T | null {
+  if (!json || typeof json !== 'object' || Array.isArray(json)) {
+    return null;
+  }
+  return json as unknown as T;
 }
 
 /**
@@ -598,4 +644,115 @@ export function calculateSetVolume(set: ExerciseSet): number {
   const reps = set.repsDone ?? set.reps ?? 0;
   const weight = set.weightDone ?? set.weight ?? 0;
   return reps * weight;
+}
+
+// ============================================================================
+// DOMAIN TYPE CONVERTERS (Prisma.JsonValue → Domain Types)
+// ============================================================================
+
+/**
+ * Type guard: verifica se un valore è un WorkoutWeek valido
+ */
+export function isWorkoutWeek(value: unknown): value is WorkoutWeek {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const obj = value as Record<string, unknown>;
+  return typeof obj.weekNumber === 'number' && Array.isArray(obj.days);
+}
+
+/**
+ * Type guard: verifica se un valore è un WorkoutProgram valido
+ */
+export function isWorkoutProgram(value: unknown): value is WorkoutProgram {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const obj = value as Record<string, unknown>;
+  return (
+    typeof obj.name === 'string' &&
+    Array.isArray(obj.weeks) &&
+    typeof obj.durationWeeks === 'number'
+  );
+}
+
+/**
+ * Converte JsonValue in WorkoutProgram type-safe.
+ * Usa runtime validation per evitare `as unknown as WorkoutProgram`.
+ *
+ * @param json - JsonValue da Prisma o Record<string, unknown>
+ * @returns WorkoutProgram o null se non valido
+ */
+export function toWorkoutProgram(
+  json: Prisma.JsonValue | Record<string, unknown> | null | undefined
+): WorkoutProgram | null {
+  if (!json || typeof json !== 'object' || Array.isArray(json)) return null;
+  if (isWorkoutProgram(json)) return json;
+  return null;
+}
+
+/**
+ * Type guard: verifica se un valore è un WorkoutSession valido
+ */
+export function isWorkoutSession(value: unknown): value is WorkoutSession {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const obj = value as Record<string, unknown>;
+  return (
+    typeof obj.userId === 'string' &&
+    typeof obj.programId === 'string' &&
+    typeof obj.weekNumber === 'number' &&
+    typeof obj.dayNumber === 'number' &&
+    Array.isArray(obj.exercises)
+  );
+}
+
+/**
+ * Converte JsonValue in WorkoutSession type-safe.
+ *
+ * @param json - JsonValue da Prisma o Record<string, unknown>
+ * @returns WorkoutSession o null se non valido
+ */
+export function toWorkoutSession(
+  json: Prisma.JsonValue | Record<string, unknown> | null | undefined
+): WorkoutSession | null {
+  if (!json || typeof json !== 'object' || Array.isArray(json)) return null;
+  if (isWorkoutSession(json)) return json;
+  return null;
+}
+
+/**
+ * Type guard: verifica se un valore è un NutritionPlan valido
+ */
+export function isNutritionPlan(value: unknown): value is NutritionPlan {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const obj = value as Record<string, unknown>;
+  return (
+    typeof obj.name === 'string' &&
+    Array.isArray(obj.weeks) &&
+    typeof obj.durationWeeks === 'number' &&
+    'targetMacros' in obj
+  );
+}
+
+/**
+ * Converte JsonValue in NutritionPlan type-safe.
+ *
+ * @param json - JsonValue da Prisma o Record<string, unknown>
+ * @returns NutritionPlan o null se non valido
+ */
+export function toNutritionPlan(
+  json: Prisma.JsonValue | Record<string, unknown> | null | undefined
+): NutritionPlan | null {
+  if (!json || typeof json !== 'object' || Array.isArray(json)) return null;
+  if (isNutritionPlan(json)) return json;
+  return null;
+}
+
+/**
+ * Converte JsonValue in WorkoutWeek[] type-safe.
+ *
+ * @param json - JsonValue da Prisma
+ * @returns Array di WorkoutWeek
+ */
+export function toWorkoutWeeks(
+  json: Prisma.JsonValue | null | undefined
+): WorkoutWeek[] {
+  if (!json || !Array.isArray(json)) return [];
+  return (json as unknown[]).filter((item): item is WorkoutWeek => isWorkoutWeek(item));
 }
