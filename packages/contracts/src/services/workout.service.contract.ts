@@ -5,7 +5,7 @@
  * UNICA FONTE DI VERITÀ per il contratto del servizio
  */
 
-import type { WorkoutProgram, ApiResponse } from '@onecoach/types';
+import type { WorkoutProgram, ApiResponse } from '@giulio-leone/types';
 
 export interface IWorkoutService {
   create(

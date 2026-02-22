@@ -5,8 +5,8 @@
  * UNICA FONTE DI VERITÀ per il contratto del servizio
  */
 
-import type { CreateFoodInput, UpdateFoodInput, FoodQueryInput } from '@onecoach/schemas';
-import type { FoodItem } from '@onecoach/types';
+import type { CreateFoodInput, UpdateFoodInput, FoodQueryInput } from '@giulio-leone/schemas';
+import type { FoodItem } from '@giulio-leone/types';
 
 export interface IFoodService {
   create(input: CreateFoodInput): Promise<FoodItem>;

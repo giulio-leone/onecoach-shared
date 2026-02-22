@@ -4,7 +4,7 @@
  * Calculates the predominant macronutrient in a food item based on caloric contribution
  */
 
-import type { Macros } from '@onecoach/types';
+import type { Macros } from '@giulio-leone/types';
 
 export type MacroType = 'PROTEIN' | 'CARBS' | 'FATS' | 'BALANCED';
 

@@ -25,14 +25,14 @@ import type {
   WorkoutWeek,
   WorkoutSession,
   NutritionPlan,
-} from '@onecoach/types';
+} from '@giulio-leone/types';
 import {
   isSetJson,
   isExerciseJson,
   isPlanMetadata,
   isExecutionMetadata,
   isCheckpointMetadata,
-} from '@onecoach/types';
+} from '@giulio-leone/types';
 
 /**
  * Type guard: verifica se un valore è un oggetto Macros valido

@@ -5,7 +5,7 @@
  * Following KISS and DRY principles.
  */
 
-import type { Food, Meal, NutritionDay } from '@onecoach/types';
+import type { Food, Meal, NutritionDay } from '@giulio-leone/types';
 
 export interface Macros {
   calories: number;

@@ -15,7 +15,7 @@ import type {
 } from '@prisma/client';
 import type Stripe from 'stripe';
 import { SubscriptionPlan, SubscriptionStatus } from '@prisma/client';
-import type { OnboardingProgress, StepCompletionInput } from '@onecoach/types';
+import type { OnboardingProgress, StepCompletionInput } from '@giulio-leone/types';
 
 /**
  * Credit Service Contract

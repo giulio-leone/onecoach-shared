@@ -5,7 +5,7 @@
  * Follows KISS, DRY, SOLID principles.
  */
 
-import type { OperationType } from '@onecoach/types';
+import type { OperationType } from '@giulio-leone/types';
 
 /**
  * Map domain and operation to OperationType enum

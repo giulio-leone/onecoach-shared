@@ -1,174 +1,149 @@
 {
-  "name": "@onecoach/lib-shared",
-  "version": "0.0.0",
-  "description": "Utilities condivise tra tutti i package",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "name": "@giulio-leone/lib-shared",
+  "version": "0.1.0",
+  "description": "OneCoach shared utilities, helpers, and services",
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./id-generator": {
-      "types": "./src/id-generator.ts",
-      "default": "./src/id-generator.ts"
+      "types": "./dist/id-generator.d.ts",
+      "import": "./dist/id-generator.js",
+      "require": "./dist/id-generator.cjs"
     },
     "./core-types": {
-      "types": "./src/utils/error/core-types.ts",
-      "default": "./src/utils/error/core-types.ts"
+      "types": "./dist/core-types.d.ts",
+      "import": "./dist/core-types.js",
+      "require": "./dist/core-types.cjs"
     },
     "./storage.service": {
-      "types": "./src/storage.service.ts",
-      "default": "./src/storage.service.ts"
+      "types": "./dist/storage.service.d.ts",
+      "import": "./dist/storage.service.js",
+      "require": "./dist/storage.service.cjs"
     },
     "./api.service": {
-      "types": "./src/api.service.ts",
-      "default": "./src/api.service.ts"
+      "types": "./dist/api.service.d.ts",
+      "import": "./dist/api.service.js",
+      "require": "./dist/api.service.cjs"
     },
     "./date-utils": {
-      "types": "./src/date-utils.ts",
-      "default": "./src/date-utils.ts"
+      "types": "./dist/date-utils.d.ts",
+      "import": "./dist/date-utils.js",
+      "require": "./dist/date-utils.cjs"
     },
     "./macro-calculations": {
-      "types": "./src/macro-calculations.ts",
-      "default": "./src/macro-calculations.ts"
+      "types": "./dist/macro-calculations.d.ts",
+      "import": "./dist/macro-calculations.js",
+      "require": "./dist/macro-calculations.cjs"
     },
     "./prisma-type-guards": {
-      "types": "./src/prisma-type-guards.ts",
-      "default": "./src/prisma-type-guards.ts"
-    },
-    "./utils": {
-      "types": "./src/utils/index.ts",
-      "default": "./src/utils/index.ts"
-    },
-    "./utils/*": {
-      "types": "./src/utils/*.ts",
-      "default": "./src/utils/*.ts"
-    },
-    "./utils/error": {
-      "types": "./src/utils/error/index.ts",
-      "default": "./src/utils/error/index.ts"
-    },
-    "./utils/error/*": {
-      "types": "./src/utils/error/*.ts",
-      "default": "./src/utils/error/*.ts"
-    },
-    "./utils/logger": {
-      "types": "./src/utils/logger/index.ts",
-      "default": "./src/utils/logger/index.ts"
-    },
-    "./utils/logger/*": {
-      "types": "./src/utils/logger/*.ts",
-      "default": "./src/utils/logger/*.ts"
-    },
-    "./utils/id-generator": {
-      "types": "./src/utils/id-generator.ts",
-      "default": "./src/utils/id-generator.ts"
-    },
-    "./utils/dialog-global": {
-      "types": "./src/utils/dialog-global.ts",
-      "default": "./src/utils/dialog-global.ts"
-    },
-    "./utils/api-error-handler": {
-      "types": "./src/utils/api-error-handler.ts",
-      "default": "./src/utils/api-error-handler.ts"
-    },
-    "./utils/validation": {
-      "types": "./src/utils/validation.ts",
-      "default": "./src/utils/validation.ts"
-    },
-    "./utils/formatters": {
-      "types": "./src/utils/formatters.ts",
-      "default": "./src/utils/formatters.ts"
-    },
-    "./utils/validators": {
-      "types": "./src/utils/validators.ts",
-      "default": "./src/utils/validators.ts"
-    },
-    "./utils/date-range-helpers": {
-      "types": "./src/utils/date-range-helpers.ts",
-      "default": "./src/utils/date-range-helpers.ts"
-    },
-    "./utils/dnd-helpers": {
-      "types": "./src/utils/dnd-helpers.ts",
-      "default": "./src/utils/dnd-helpers.ts"
-    },
-    "./utils/weight-converter": {
-      "types": "./src/utils/weight-converter.ts",
-      "default": "./src/utils/weight-converter.ts"
-    },
-    "./utils/ai-model-mapper": {
-      "types": "./src/utils/ai-model-mapper.ts",
-      "default": "./src/utils/ai-model-mapper.ts"
-    },
-    "./utils/prisma-type-guards": {
-      "types": "./src/utils/prisma-type-guards.ts",
-      "default": "./src/utils/prisma-type-guards.ts"
-    },
-    "./mappers": {
-      "types": "./src/mappers/index.ts",
-      "default": "./src/mappers/index.ts"
-    },
-    "./mappers/*": {
-      "types": "./src/mappers/*.ts",
-      "default": "./src/mappers/*.ts"
-    },
-    "./hooks": {
-      "types": "./src/hooks/index.ts",
-      "default": "./src/hooks/index.ts"
-    },
-    "./hooks/*": {
-      "types": "./src/hooks/*.ts",
-      "default": "./src/hooks/*.ts"
-    },
-    "./components": {
-      "types": "./src/components/index.ts",
-      "default": "./src/components/index.ts"
-    },
-    "./components/*": {
-      "types": "./src/components/*.tsx",
-      "default": "./src/components/*.tsx"
+      "types": "./dist/prisma-type-guards.d.ts",
+      "import": "./dist/prisma-type-guards.js",
+      "require": "./dist/prisma-type-guards.cjs"
     },
     "./batch-processing": {
-      "types": "./src/utils/batch-processing.ts",
-      "default": "./src/utils/batch-processing.ts"
+      "types": "./dist/batch-processing.d.ts",
+      "import": "./dist/batch-processing.js",
+      "require": "./dist/batch-processing.cjs"
     },
     "./simple-cache": {
-      "types": "./src/utils/simple-cache.ts",
-      "default": "./src/utils/simple-cache.ts"
+      "types": "./dist/simple-cache.d.ts",
+      "import": "./dist/simple-cache.js",
+      "require": "./dist/simple-cache.cjs"
     },
     "./url-normalizer": {
-      "types": "./src/utils/url-normalizer.ts",
-      "default": "./src/utils/url-normalizer.ts"
+      "types": "./dist/url-normalizer.d.ts",
+      "import": "./dist/url-normalizer.js",
+      "require": "./dist/url-normalizer.cjs"
     },
-    "./utils/image-url-sanitizer": {
-      "types": "./src/utils/image-url-sanitizer.ts",
-      "default": "./src/utils/image-url-sanitizer.ts"
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.js",
+      "require": "./dist/utils/index.cjs"
     },
-    "./utils/macro-normalization": {
-      "types": "./src/utils/macro-normalization.ts",
-      "default": "./src/utils/macro-normalization.ts"
+    "./utils/*": {
+      "types": "./dist/utils/*.d.ts",
+      "import": "./dist/utils/*.js",
+      "require": "./dist/utils/*.cjs"
+    },
+    "./utils/error": {
+      "types": "./dist/utils/error/index.d.ts",
+      "import": "./dist/utils/error/index.js",
+      "require": "./dist/utils/error/index.cjs"
+    },
+    "./utils/error/*": {
+      "types": "./dist/utils/error/*.d.ts",
+      "import": "./dist/utils/error/*.js",
+      "require": "./dist/utils/error/*.cjs"
+    },
+    "./utils/logger": {
+      "types": "./dist/utils/logger/index.d.ts",
+      "import": "./dist/utils/logger/index.js",
+      "require": "./dist/utils/logger/index.cjs"
+    },
+    "./utils/logger/*": {
+      "types": "./dist/utils/logger/*.d.ts",
+      "import": "./dist/utils/logger/*.js",
+      "require": "./dist/utils/logger/*.cjs"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.js",
+      "require": "./dist/hooks/index.cjs"
+    },
+    "./hooks/*": {
+      "types": "./dist/hooks/*.d.ts",
+      "import": "./dist/hooks/*.js",
+      "require": "./dist/hooks/*.cjs"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.js",
+      "require": "./dist/components/index.cjs"
+    },
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "import": "./dist/components/*.js",
+      "require": "./dist/components/*.cjs"
     }
   },
+  "files": ["dist"],
   "scripts": {
-    "type-check": "tsc --noEmit"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm run build"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/g97iulio1609/onecoach-shared.git"
+  },
+  "license": "UNLICENSED",
   "dependencies": {
-    "@onecoach/schemas": "workspace:*",
-    "@prisma/client": "^7.2.0",
-    "@onecoach/types": "workspace:*",
-    "@onecoach/types-core": "workspace:*",
-    "@onecoach/types-workout": "workspace:*",
-    "@onecoach/types-nutrition": "workspace:*",
-    "@onecoach/types-chat": "workspace:*",
-    "@onecoach/types-analytics": "workspace:*",
-    "@onecoach/types-ai": "workspace:*",
-    "@onecoach/types-ui": "workspace:*",
-    "@onecoach/types-domain": "workspace:*",
-    "@onecoach/types-database": "workspace:*"
+    "@giulio-leone/types": "workspace:*"
+  },
+  "peerDependencies": {
+    "@prisma/client": ">=5.0.0",
+    "react": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@prisma/client": { "optional": true },
+    "react": { "optional": true }
   },
   "devDependencies": {
+    "@prisma/client": "^7.2.0",
+    "tsup": "^8.4.0",
     "typescript": "^5.9.3"
-  },
-  "sideEffects": false
+  }
 }

@@ -5,7 +5,7 @@
  * Implementa SRP (Single Responsibility Principle)
  */
 
-import type { ApiResponse } from '@onecoach/types';
+import type { ApiResponse } from '@giulio-leone/types';
 
 /**
  * Interface per API Service

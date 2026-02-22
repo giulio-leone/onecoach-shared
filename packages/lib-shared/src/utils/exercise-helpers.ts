@@ -5,7 +5,7 @@
  * Testabili e riutilizzabili.
  */
 
-import type { LocalizedExercise } from '@onecoach/types';
+import type { LocalizedExercise } from '@giulio-leone/types';
 import { ExerciseApprovalStatus } from '@prisma/client';
 
 export const STATUS_LABELS: Record<ExerciseApprovalStatus, string> = {

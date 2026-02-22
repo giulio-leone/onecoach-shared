@@ -10,7 +10,7 @@ import type {
   AnalyticsChartData,
   BodyMeasurement,
   UserGoal,
-} from '@onecoach/types';
+} from '@giulio-leone/types';
 
 export interface IAnalyticsService {
   getUserAnalytics(userId: string): Promise<UserAnalyticsReport>;

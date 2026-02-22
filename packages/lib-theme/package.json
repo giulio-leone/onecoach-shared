@@ -1,46 +1,42 @@
 {
-    "name": "@onecoach/lib-theme",
-    "version": "0.0.0",
-    "description": "Cross-platform theming system with Zustand store and React provider",
-    "main": "src/index.ts",
-    "types": "src/index.ts",
-    "exports": {
-        ".": {
-            "types": "./src/index.ts",
-            "default": "./src/index.ts"
-        },
-        "./store": {
-            "types": "./src/theme.store.ts",
-            "default": "./src/theme.store.ts"
-        },
-        "./provider": {
-            "types": "./src/theme-provider.tsx",
-            "default": "./src/theme-provider.tsx"
-        },
-        "./dark-mode-classes": {
-            "types": "./src/dark-mode-classes.ts",
-            "default": "./src/dark-mode-classes.ts"
-        }
-    },
-    "scripts": {
-        "type-check": "tsc --noEmit"
-    },
-    "dependencies": {
-        "clsx": "^2.1.1",
-        "tailwind-merge": "^3.4.0",
-        "zustand": "^5.0.9"
-    },
-    "peerDependencies": {
-        "react": ">=18.0.0 <20"
-    },
-    "peerDependenciesMeta": {
-        "react": {
-            "optional": false
-        }
-    },
-    "devDependencies": {
-        "@types/react": "^19.2.7",
-        "typescript": "^5.9.3"
-    },
-    "sideEffects": false
+  "name": "@giulio-leone/lib-theme",
+  "version": "0.1.0",
+  "description": "OneCoach theme management, dark mode, and Tailwind utilities",
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm run build"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/g97iulio1609/onecoach-shared.git"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.4.0",
+    "zustand": "^5.0.9"
+  },
+  "devDependencies": {
+    "tsup": "^8.4.0",
+    "typescript": "^5.9.3"
+  }
 }

@@ -32,5 +32,6 @@
   "devDependencies": {
     "typescript": "^5.9.3"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "deprecated": "Merged into @giulio-leone/contracts"
 }

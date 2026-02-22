@@ -1,27 +1,52 @@
 {
-  "name": "@onecoach/contracts",
-  "version": "0.0.0",
-  "description": "Interfacce e contratti per tutti i servizi",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
-  "scripts": {
-    "type-check": "tsc --noEmit"
+  "name": "@giulio-leone/contracts",
+  "version": "0.1.0",
+  "description": "OneCoach service contracts (Hexagonal Architecture ports) and validation services",
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
   },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm run build"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/g97iulio1609/onecoach-shared.git"
+  },
+  "license": "UNLICENSED",
   "dependencies": {
-    "@onecoach/schemas": "workspace:*",
-    "@onecoach/types": "workspace:*",
-    "@onecoach/types-core": "workspace:*",
-    "@onecoach/types-workout": "workspace:*",
-    "@onecoach/types-nutrition": "workspace:*",
-    "@onecoach/types-chat": "workspace:*",
-    "@onecoach/types-analytics": "workspace:*",
-    "@onecoach/types-ai": "workspace:*",
-    "@onecoach/types-ui": "workspace:*",
-    "@onecoach/types-domain": "workspace:*",
-    "@onecoach/types-database": "workspace:*"
+    "@giulio-leone/types": "workspace:*",
+    "@giulio-leone/schemas": "workspace:*",
+    "@giulio-leone/lib-shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "@prisma/client": ">=5.0.0",
+    "stripe": ">=14.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@prisma/client": { "optional": true },
+    "stripe": { "optional": true }
   },
   "devDependencies": {
+    "@prisma/client": "^7.2.0",
+    "stripe": "^17.0.0",
+    "tsup": "^8.4.0",
     "typescript": "^5.9.3"
-  },
-  "sideEffects": false
+  }
 }
