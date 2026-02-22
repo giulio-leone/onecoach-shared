@@ -1,6 +1,6 @@
 {
   "name": "@giulio-leone/lib-shared",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "OneCoach shared utilities, helpers, and services",
   "sideEffects": false,
   "type": "module",
@@ -132,7 +132,7 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
-    "@giulio-leone/types": "workspace:*"
+    "@giulio-leone/types": "^0.1.0"
   },
   "peerDependencies": {
     "@prisma/client": ">=5.0.0",

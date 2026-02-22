@@ -1,6 +1,6 @@
 {
   "name": "@giulio-leone/contracts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "OneCoach service contracts (Hexagonal Architecture ports) and validation services",
   "sideEffects": false,
   "type": "module",
@@ -32,9 +32,9 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
-    "@giulio-leone/types": "workspace:*",
-    "@giulio-leone/schemas": "workspace:*",
-    "@giulio-leone/lib-shared": "workspace:*"
+    "@giulio-leone/types": "^0.1.0",
+    "@giulio-leone/schemas": "^0.1.0",
+    "@giulio-leone/lib-shared": "^0.1.0"
   },
   "peerDependencies": {
     "@prisma/client": ">=5.0.0",
