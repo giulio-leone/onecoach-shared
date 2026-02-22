@@ -34,8 +34,8 @@ export * from './logger';
 // Prisma Type Guards
 export * from '../prisma-type-guards';
 
-// API Error Handler - use error/api instead
-export { type ApiErrorResponse, handleApiError, getErrorMessage } from './api-error-handler';
+// API Error Handler (client-side) — handleApiError only (getErrorMessage comes from ./error/core)
+export { handleApiError } from './api-error-handler';
 
 // Validation (excludes isValidEmail which is already exported from validators)
 export {

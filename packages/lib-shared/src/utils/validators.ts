@@ -126,7 +126,10 @@ export function isNonEmptyArray<T>(array: T[]): boolean {
  * @param password - Password da validare
  * @returns Oggetto con esito e eventuale errore
  */
-export function validatePassword(password: string): { valid: boolean; error?: string } {
+// validatePassword is in validation.ts (richer version with options)
+// This simple version is kept for backward compatibility but not re-exported from barrel
+// @ts-ignore
+function validatePasswordSimple(password: string): { valid: boolean; error?: string } {
   if (!password || password.length < 8) {
     return { valid: false, error: 'La password deve essere di almeno 8 caratteri' };
   }
