@@ -14,9 +14,8 @@
       "require": "./dist/index.cjs"
     },
     "./id-generator": {
-      "types": "./dist/id-generator.d.ts",
-      "import": "./dist/id-generator.js",
-      "require": "./dist/id-generator.cjs"
+      "types": "./src/id-generator.ts",
+      "default": "./src/id-generator.ts"
     },
     "./core-types": {
       "types": "./dist/core-types.d.ts",
@@ -132,7 +131,7 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
-    "@giulio-leone/types": "^0.1.0"
+    "@giulio-leone/types": "workspace:*"
   },
   "peerDependencies": {
     "@prisma/client": ">=5.0.0",

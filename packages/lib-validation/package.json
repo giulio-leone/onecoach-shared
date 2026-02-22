@@ -1,5 +1,5 @@
 {
-  "name": "@onecoach/lib-validation",
+  "name": "@giulio-leone/lib-validation",
   "version": "0.0.0",
   "description": "Shared validation services (macro validation, coherence checking)",
   "main": "src/index.ts",
@@ -18,16 +18,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@onecoach/lib-shared": "workspace:*",
-    "@onecoach/types-core": "workspace:*",
-    "@onecoach/types-workout": "workspace:*",
-    "@onecoach/types-nutrition": "workspace:*",
-    "@onecoach/types-chat": "workspace:*",
-    "@onecoach/types-analytics": "workspace:*",
-    "@onecoach/types-ai": "workspace:*",
-    "@onecoach/types-ui": "workspace:*",
-    "@onecoach/types-domain": "workspace:*",
-    "@onecoach/types-database": "workspace:*"
+    "@giulio-leone/lib-shared": "workspace:*",
+    "@giulio-leone/types": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
