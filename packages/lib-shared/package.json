@@ -114,12 +114,13 @@
       "require": "./dist/components/*.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "clean": "rm -rf dist",
-    "prepublishOnly": "pnpm run build"
+    "clean": "rm -rf dist"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
@@ -138,8 +139,12 @@
     "react": ">=18.0.0"
   },
   "peerDependenciesMeta": {
-    "@prisma/client": { "optional": true },
-    "react": { "optional": true }
+    "@prisma/client": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@prisma/client": "^7.2.0",

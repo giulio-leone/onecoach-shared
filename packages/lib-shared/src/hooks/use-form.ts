@@ -130,7 +130,7 @@ export function useForm<T extends object>(options: UseFormOptions<T>): UseFormRe
   // Set single value
   const setValue = useCallback(
     <K extends keyof T>(field: K, value: T[K]) => {
-      updateValuesPartial({ [field]: value } as Partial<T>);
+      updateValuesPartial({ [field]: value } as unknown as Partial<T>);
 
       if (validateOnChange) {
         const error = validateField(field, value);

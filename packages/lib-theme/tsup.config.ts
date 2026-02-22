@@ -9,5 +9,5 @@ export default defineConfig({
   treeshake: true,
   sourcemap: true,
   outDir: 'dist',
-  external: ['zustand', 'clsx', 'tailwind-merge'],
+  external: ['zustand', 'clsx', 'tailwind-merge', 'react', 'react-dom', 'react/jsx-runtime'],
 });

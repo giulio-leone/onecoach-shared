@@ -102,5 +102,11 @@ export default defineConfig({
     '@giulio-leone/constants',
     'react',
     'react-dom',
+    'date-fns',
+    'date-fns/locale',
+    'lucide-react',
+    'next/server',
+    'react-native',
+    'zod',
   ],
 });
