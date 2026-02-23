@@ -156,7 +156,7 @@ export class ParallelExecutor<T extends ExecutableTask> {
     if (!this.canExecute()) {
       executorLogger.error('[ParallelExecutor] Circuit breaker is OPEN, rejecting execution');
       return tasks.map((task: T) => ({
-        subtaskId: (task as any).id || 'unknown',
+        subtaskId: task.id || 'unknown',
         success: false,
         error: 'Circuit breaker is open - too many failures',
         retries: 0,

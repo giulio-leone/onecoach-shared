@@ -44,11 +44,12 @@ export {
   ConflictError,
 } from './custom-errors';
 
-// API error responses (handleApiError excluded — exported from ../api-error-handler to avoid DTS conflict)
+// API error responses
 export {
   createApiErrorResponse,
   createNextErrorResponse,
   mapErrorToApiResponse,
+  handleRouteError,
   type ApiErrorResponse,
 } from './api';
 

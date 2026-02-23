@@ -185,16 +185,39 @@ export function mapErrorToApiResponse(error: unknown): {
 }
 
 /**
- * Generic error handler for API routes
+ * Generic error handler for API routes.
+ *
+ * Handles AuthError (duck-typed via `toResponse()`), Zod errors,
+ * custom AppError subclasses, and unknown errors — all in one call.
+ *
+ * @param error - The caught error
+ * @param context - Optional logging context (e.g. '[TASKS_POST]')
  *
  * @example
  * try {
- *   // API logic
+ *   const user = await requireAuthOrThrow();
+ *   // ...business logic
  * } catch (error: unknown) {
- *   return handleApiError(error);
+ *   return handleRouteError(error, '[TASKS_POST]');
  * }
  */
-export function handleApiError(error: unknown): NextResponse<ApiErrorResponse> {
+export function handleRouteError(error: unknown, context?: string): NextResponse<ApiErrorResponse> {
+  // Duck-type: errors with toResponse() (e.g. AuthError) handle themselves
+  if (
+    error != null &&
+    typeof error === 'object' &&
+    'toResponse' in error &&
+    typeof (error as { toResponse: unknown }).toResponse === 'function'
+  ) {
+    return (error as { toResponse(): NextResponse<ApiErrorResponse> }).toResponse();
+  }
+
+  // Log with context if provided
+  if (context) {
+    const { logError: le } = require('../logger');
+    le(context, error instanceof Error ? error : undefined);
+  }
+
   const { response, status } = mapErrorToApiResponse(error);
 
   const { NextResponse: NR } = require('next/server');
