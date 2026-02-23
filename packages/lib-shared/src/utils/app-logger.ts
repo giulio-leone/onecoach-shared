@@ -1,7 +1,7 @@
 /**
  * App-wide logger configuration (server-first, minimal overhead in produzione)
  */
-import { Logger, type LogLevel } from '@giulio-leone/lib-shared';
+import { Logger, type LogLevel } from './logger';
 
 const env = process.env.NODE_ENV;
 const isProduction = env === 'production';

@@ -16,7 +16,7 @@ export function validatePatch<T extends z.ZodObject<z.ZodRawShape>>(
   schema: T,
   payload: unknown
 ): z.infer<ReturnType<T['partial']>> {
-  return schema.partial().parse(payload);
+  return schema.partial().parse(payload) as z.infer<ReturnType<T['partial']>>;
 }
 
 export type BatchAction = 'update' | 'delete' | 'create';
