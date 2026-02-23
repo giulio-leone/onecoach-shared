@@ -11,7 +11,7 @@ import {
   validateMacroCoherence,
   type Macros,
   type MacroCoherenceResult,
-} from '@giulio-leone/lib-shared';
+} from '../../macro-calculations';
 
 /**
  * Validation result for Atwater formula

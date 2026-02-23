@@ -33,3 +33,6 @@ export * from './utils/nutrition-plan-helpers';
 export * from './utils/image-url-sanitizer';
 // parseJsonResponse is likely in formatters or validators, using wildcard export from utils
 export * from './utils/app-logger';
+
+// Contracts (merged from @giulio-leone/contracts)
+export * from './contracts';
