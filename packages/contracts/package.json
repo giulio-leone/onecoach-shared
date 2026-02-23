@@ -1,6 +1,6 @@
 {
   "name": "@giulio-leone/contracts",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "OneCoach service contracts (Hexagonal Architecture ports) and validation services",
   "sideEffects": false,
   "type": "module",
