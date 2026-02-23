@@ -111,6 +111,14 @@
       "types": "./dist/components/*.d.ts",
       "import": "./dist/components/*.js",
       "require": "./dist/components/*.cjs"
+    },
+    "./theme": {
+      "types": "./src/theme/index.ts",
+      "default": "./src/theme/index.ts"
+    },
+    "./import-core": {
+      "types": "./src/import-core/index.ts",
+      "default": "./src/import-core/index.ts"
     }
   },
   "files": [
