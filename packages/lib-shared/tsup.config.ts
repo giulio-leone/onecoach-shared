@@ -89,7 +89,7 @@ export default defineConfig({
     'performance/optimizations': 'src/performance/optimizations.ts',
   },
   format: ['esm', 'cjs'],
-  dts: true,
+  dts: false,
   clean: true,
   splitting: true,
   treeshake: true,
