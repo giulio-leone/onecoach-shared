@@ -36,3 +36,6 @@ export * from './utils/app-logger';
 
 // Contracts (merged from @giulio-leone/contracts)
 export * from './contracts';
+
+// Constants (merged from @giulio-leone/constants)
+export * from './constants';

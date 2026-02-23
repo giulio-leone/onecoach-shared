@@ -1,0 +1,11 @@
+/**
+ * Validation boundaries for user inputs.
+ */
+export const VALIDATION = {
+  MIN_WORKOUT_NAME_LENGTH: 3,
+  MAX_WORKOUT_NAME_LENGTH: 100,
+  MIN_NUTRITION_NAME_LENGTH: 3,
+  MAX_NUTRITION_NAME_LENGTH: 100,
+  MIN_MESSAGE_LENGTH: 1,
+  MAX_MESSAGE_LENGTH: 2000,
+} as const;
