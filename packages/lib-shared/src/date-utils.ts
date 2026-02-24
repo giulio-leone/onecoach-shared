@@ -86,3 +86,30 @@ export function formatDateISO(date: Date | string): string {
   }
   return datePart;
 }
+
+/** Alias for formatDateISO */
+export const formatISODate = formatDateISO;
+
+/**
+ * Verifica se due date sono nello stesso giorno
+ */
+export function isSameDay(date1: Date | string, date2: Date | string): boolean {
+  const d1 = typeof date1 === 'string' ? new Date(date1) : date1;
+  const d2 = typeof date2 === 'string' ? new Date(date2) : date2;
+  return (
+    d1.getFullYear() === d2.getFullYear() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getDate() === d2.getDate()
+  );
+}
+
+/**
+ * Parsa una stringa ISO (YYYY-MM-DD) in Date
+ */
+export function parseISODate(isoString: string): Date {
+  const date = new Date(isoString);
+  if (isNaN(date.getTime())) {
+    throw new Error(`Invalid ISO date string: ${isoString}`);
+  }
+  return date;
+}

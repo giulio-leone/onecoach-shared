@@ -16,6 +16,12 @@ export * from './validators';
 // Date Utils
 export * from '../date-utils';
 
+// Date Conversion (Prisma ↔ Domain)
+export * from './date-conversion';
+
+// Date Range Helpers (Analytics)
+export * from './date-range-helpers';
+
 // HTTP Utils
 export * from './http';
 
