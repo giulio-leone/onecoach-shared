@@ -39,3 +39,6 @@ export * from './contracts';
 
 // Constants (merged from @giulio-leone/constants)
 export * from './constants';
+
+// Theme (cross-platform theming system)
+export * from './theme';
