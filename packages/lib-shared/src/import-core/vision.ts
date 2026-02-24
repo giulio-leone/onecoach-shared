@@ -12,10 +12,25 @@
  */
 
 import { streamText, Output } from 'ai';
-import { AIFrameworkConfigService, FrameworkFeature, type ImportModelsConfig, AIProviderConfigService } from '@giulio-leone/lib-ai';
 import { createOpenAI } from '@ai-sdk/openai';
-import { logger, creditService } from '@giulio-leone/lib-core';
 import type { VisionParseParams, ImportFileType } from './types';
+
+// Lazy-loaded to avoid circular dependency: lib-shared → lib-core → lib-shared
+let _logger: { info: (...args: unknown[]) => void; warn: (...args: unknown[]) => void } | null = null;
+let _creditService: {
+  checkCredits: (userId: string, amount: number) => Promise<boolean>;
+  consumeCredits: (params: Record<string, unknown>) => Promise<void>;
+  addCredits: (params: Record<string, unknown>) => Promise<void>;
+} | null = null;
+
+async function getLibCore(): Promise<{ logger: typeof _logger; creditService: typeof _creditService }> {
+  if (!_logger || !_creditService) {
+    const libCore = await import('@giulio-leone/lib-core');
+    _logger = libCore.logger;
+    _creditService = libCore.creditService;
+  }
+  return { logger: _logger!, creditService: _creditService! };
+}
 
 // ==================== CONFIG ====================
 
@@ -40,6 +55,19 @@ interface VisionModelConfig {
 }
 
 async function getVisionModelConfig(fileType: ImportFileType): Promise<VisionModelConfig> {
+  // Dynamic import to avoid circular dependency: lib-shared → lib-ai → lib-shared
+  const { AIProviderConfigService, AIFrameworkConfigService, FrameworkFeature } = await import('@giulio-leone/lib-ai');
+  type ImportModelsConfig = Awaited<ReturnType<typeof AIFrameworkConfigService.getConfig>>['config'] & {
+    imageModel?: string;
+    pdfModel?: string;
+    documentModel?: string;
+    spreadsheetModel?: string;
+    fallbackModel?: string;
+    creditCosts?: Record<string, number>;
+    maxRetries?: number;
+    retryDelayBaseMs?: number;
+  };
+
   const apiKey = await AIProviderConfigService.getApiKey('openrouter');
 
   if (!apiKey) {
@@ -125,6 +153,8 @@ export async function parseWithVisionAI<T>(params: VisionParseParams<T>): Promis
     apiKey: overrideApiKey,
     onProgress,
   } = params;
+
+  const { logger, creditService } = await getLibCore();
 
   // Load config
   const config = await getVisionModelConfig(fileType);
