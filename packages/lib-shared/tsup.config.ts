@@ -28,7 +28,6 @@ export default defineConfig({
     'utils/api-helpers': 'src/utils/api-helpers.ts',
     'utils/batch-processing': 'src/utils/batch-processing.ts',
     'utils/date-conversion': 'src/utils/date-conversion.ts',
-    'utils/date-helpers': 'src/utils/date-helpers.ts',
     'utils/date-range-helpers': 'src/utils/date-range-helpers.ts',
     'utils/dnd-helpers': 'src/utils/dnd-helpers.ts',
     'utils/exercise-helpers': 'src/utils/exercise-helpers.ts',
