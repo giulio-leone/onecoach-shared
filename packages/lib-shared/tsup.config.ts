@@ -99,7 +99,6 @@ export default defineConfig({
     '@prisma/client',
     '@giulio-leone/types',
     '@giulio-leone/schemas',
-    '@giulio-leone/constants',
     'react',
     'react-dom',
     'date-fns',
