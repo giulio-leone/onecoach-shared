@@ -52,7 +52,7 @@ export declare function formatAnalyticsDate(date: Date, formatStr?: string): str
 /**
  * Format date range
  */
-export declare function formatDateRange(startDate: Date, endDate: Date): string;
+export { formatDateRange } from './date-range-helpers';
 /**
  * Format change value with sign
  */

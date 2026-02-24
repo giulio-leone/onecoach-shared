@@ -6,6 +6,7 @@
  */
 
 import { format, intervalToDuration } from 'date-fns';
+import { formatDateRange } from './date-range-helpers';
 import { it } from 'date-fns/locale';
 
 /**
@@ -164,9 +165,7 @@ export function formatAnalyticsDate(date: Date, formatStr = 'dd/MM/yyyy'): strin
 /**
  * Format date range
  */
-export function formatDateRange(startDate: Date, endDate: Date): string {
-  return `${format(startDate, 'dd/MM/yyyy')} - ${format(endDate, 'dd/MM/yyyy')}`;
-}
+export { formatDateRange };
 
 /**
  * Format change value with sign

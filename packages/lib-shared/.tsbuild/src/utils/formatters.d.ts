@@ -45,7 +45,7 @@ export declare function formatDuration(minutes: number): string;
  * @example
  * formatDate('2025-10-26') // '26/10/2025'
  */
-export declare function formatDate(date: string | Date): string;
+export declare function formatDate(date: string | Date, locale?: string): string;
 /**
  * Formatta data con ora
  *

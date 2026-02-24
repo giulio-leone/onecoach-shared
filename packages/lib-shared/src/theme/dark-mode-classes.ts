@@ -5,8 +5,7 @@
  * These constants can be reused across components to maintain consistency.
  */
 
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '@giulio-leone/lib-design-system';
 
 /**
  * Core dark mode classes for different surface levels and states
@@ -128,12 +127,6 @@ export const darkModeClasses = {
     },
 } as const;
 
-/**
- * Helper function to combine classes with stable ordering.
- * Uses clsx for conditional classes and tailwind-merge for deduplication.
- */
-export function cn(...classes: ClassValue[]): string {
-    return twMerge(clsx(classes));
-}
+export { cn };
 
 export type DarkModeClasses = typeof darkModeClasses;
