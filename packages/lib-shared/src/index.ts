@@ -1,5 +1,5 @@
 /**
- * @onecoach/lib-shared
+ * @giulio-leone/lib-shared
  *
  * Utilities condivise tra tutti i package
  */
@@ -11,10 +11,11 @@ export * from './prisma-type-guards';
 export * from './macro-calculations';
 // calculateMainMacro and MainMacro were removed or renamed to calculateMacros/Macros
 
-// Export from sub-directories
+// Export from sub-directories (server-safe only)
 export * from './utils';
-export * from './performance';
-export * from './components';
+// Client-only: use @giulio-leone/lib-shared/performance, /components, /hooks
+// export * from './performance';
+// export * from './components';
 
 // Explicitly export key utilities for cleaner access
 export * from './utils/logger';
@@ -40,5 +41,5 @@ export * from './contracts';
 // Constants (merged from @giulio-leone/constants)
 export * from './constants';
 
-// Theme (cross-platform theming system)
-export * from './theme';
+// Theme (use @giulio-leone/lib-shared/theme for client-side)
+// export * from './theme';

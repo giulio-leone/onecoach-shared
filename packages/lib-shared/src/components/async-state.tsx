@@ -8,9 +8,9 @@
 'use client';
 
 import { Loader2, AlertCircle, AlertTriangle } from 'lucide-react';
-// Button is intentionally not imported from @onecoach/ui to avoid circular dependencies
+// Button is intentionally not imported from @giulio-leone/ui to avoid circular dependencies
 // and keep lib-shared clean of heavy UI deps.
-// import { Button } from '@onecoach/ui';
+// import { Button } from '@giulio-leone/ui';
 
 export interface LoadingStateProps {
   message?: string;

@@ -29,37 +29,37 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@onecoach/types": [
+      "@giulio-leone/types": [
         "./types/src/index.ts"
       ],
-      "@onecoach/types/*": [
+      "@giulio-leone/types/*": [
         "./types/src/*"
       ],
-      "@onecoach/constants": [
+      "@giulio-leone/constants": [
         "./constants/src/index.ts"
       ],
-      "@onecoach/constants/*": [
+      "@giulio-leone/constants/*": [
         "./constants/src/*"
       ],
-      "@onecoach/schemas": [
+      "@giulio-leone/schemas": [
         "./schemas/src/index.ts"
       ],
-      "@onecoach/schemas/*": [
+      "@giulio-leone/schemas/*": [
         "./schemas/src/*"
       ],
-      "@onecoach/contracts": [
+      "@giulio-leone/contracts": [
         "./contracts/src/index.ts"
       ],
-      "@onecoach/contracts/*": [
+      "@giulio-leone/contracts/*": [
         "./contracts/src/*"
       ],
-      "@onecoach/lib-shared": [
+      "@giulio-leone/lib-shared": [
         "./lib-shared/src/index.ts"
       ],
-      "@onecoach/lib-shared/*": [
+      "@giulio-leone/lib-shared/*": [
         "./lib-shared/src/*"
       ],
-      "@onecoach/lib-workout/intensity-calculator": [
+      "@giulio-leone/lib-workout/intensity-calculator": [
         "../../onecoach-backend/packages/lib-workout/src/helpers/intensity-calculator.ts"
       ]
     }
