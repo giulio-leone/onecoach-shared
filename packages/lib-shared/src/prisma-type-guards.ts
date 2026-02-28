@@ -64,7 +64,7 @@ export function isMacros(value: unknown): value is Macros {
  * const macros = toMacros(nutritionLog.actualDailyMacros);
  * // No need for 'as unknown'!
  */
-export function toMacros(json: Prisma.JsonValue | null | undefined): Macros {
+export function toMacros(json: unknown): Macros {
   // Default fallback
   const defaultMacros: Macros = {
     calories: 0,
@@ -94,7 +94,7 @@ export function toMacros(json: Prisma.JsonValue | null | undefined): Macros {
  * @param json - JsonValue array da Prisma
  * @returns Array di oggetti Macros
  */
-export function toMacrosArray(json: Prisma.JsonValue | null | undefined): Macros[] {
+export function toMacrosArray(json: unknown): Macros[] {
   if (!json || !Array.isArray(json)) {
     return [];
   }
@@ -252,7 +252,7 @@ export function isExerciseArray(value: unknown): value is Array<Record<string, u
  * @returns Array di exercise objects
  */
 export function toExerciseArray(
-  json: Prisma.JsonValue | null | undefined
+  json: unknown
 ): Array<Record<string, unknown>> {
   if (!json || !Array.isArray(json)) {
     return [];
@@ -289,7 +289,7 @@ export function extractSetValue(value: unknown): number {
  * @param json - JsonValue da Prisma
  * @returns Record object o empty object
  */
-export function toJsonObject(json: Prisma.JsonValue | null | undefined): Record<string, unknown> {
+export function toJsonObject(json: unknown): Record<string, unknown> {
   if (!json || typeof json !== 'object' || Array.isArray(json)) {
     return {};
   }
@@ -305,7 +305,7 @@ export function toJsonObject(json: Prisma.JsonValue | null | undefined): Record<
  * @param json - JsonValue da Prisma
  * @returns T o null se non è un oggetto valido
  */
-export function fromPrismaJson<T>(json: Prisma.JsonValue | null | undefined): T | null {
+export function fromPrismaJson<T>(json: unknown): T | null {
   if (!json || typeof json !== 'object' || Array.isArray(json)) {
     return null;
   }
@@ -318,7 +318,7 @@ export function fromPrismaJson<T>(json: Prisma.JsonValue | null | undefined): T 
  * @param json - JsonValue da Prisma
  * @returns Array o empty array
  */
-export function toJsonArray(json: Prisma.JsonValue | null | undefined): unknown[] {
+export function toJsonArray(json: unknown): unknown[] {
   if (!json || !Array.isArray(json)) {
     return [];
   }
@@ -363,7 +363,7 @@ export function isFood(value: unknown): value is Record<string, unknown> {
  * @returns Array di meal objects
  */
 export function toMealsArray(
-  json: Prisma.JsonValue | null | undefined
+  json: unknown
 ): Array<Record<string, unknown>> {
   if (!json || !Array.isArray(json)) {
     return [];
@@ -428,7 +428,7 @@ export function getFoodMacros(food: Record<string, unknown>): Macros {
  * @param json - JsonValue da verificare
  * @returns true se contiene dati
  */
-export function hasJsonData(json: Prisma.JsonValue | null | undefined): boolean {
+export function hasJsonData(json: unknown): boolean {
   if (!json) return false;
   if (Array.isArray(json)) return json.length > 0;
   if (typeof json === 'object') return Object.keys(json).length > 0;
@@ -441,7 +441,7 @@ export function hasJsonData(json: Prisma.JsonValue | null | undefined): boolean 
  * @param json - JsonValue da Prisma
  * @returns SetJson o null se non valido
  */
-export function toSetJson(json: Prisma.JsonValue | null | undefined): SetJson | null {
+export function toSetJson(json: unknown): SetJson | null {
   if (!json || typeof json !== 'object' || Array.isArray(json)) return null;
   if (isSetJson(json)) return json;
   return null;
@@ -453,7 +453,7 @@ export function toSetJson(json: Prisma.JsonValue | null | undefined): SetJson | 
  * @param json - JsonValue da Prisma
  * @returns ExerciseJson o null se non valido
  */
-export function toExerciseJson(json: Prisma.JsonValue | null | undefined): ExerciseJson | null {
+export function toExerciseJson(json: unknown): ExerciseJson | null {
   if (!json || typeof json !== 'object' || Array.isArray(json)) return null;
   if (isExerciseJson(json)) return json;
   return null;
@@ -513,7 +513,7 @@ export function exerciseSetToSetJson(set: ExerciseSet): SetJson {
  * @param json - JsonValue da Prisma
  * @returns Array di ExerciseSet
  */
-export function toSetArrayTyped(json: Prisma.JsonValue | null | undefined): ExerciseSet[] {
+export function toSetArrayTyped(json: unknown): ExerciseSet[] {
   if (!json || !Array.isArray(json)) return [];
   const result: ExerciseSet[] = [];
   for (const item of json) {
@@ -532,7 +532,7 @@ export function toSetArrayTyped(json: Prisma.JsonValue | null | undefined): Exer
  * @param json - JsonValue da Prisma
  * @returns Array di Exercise
  */
-export function toExerciseArrayTyped(json: Prisma.JsonValue | null | undefined): Exercise[] {
+export function toExerciseArrayTyped(json: unknown): Exercise[] {
   if (!json || !Array.isArray(json)) return [];
   const result: Exercise[] = [];
   for (const item of json) {
@@ -600,7 +600,7 @@ export function toExerciseArrayTyped(json: Prisma.JsonValue | null | undefined):
  * @param json - JsonValue da Prisma
  * @returns PlanMetadata o null se non valido
  */
-export function toPlanMetadata(json: Prisma.JsonValue | null | undefined): PlanMetadata | null {
+export function toPlanMetadata(json: unknown): PlanMetadata | null {
   if (!json || typeof json !== 'object' || Array.isArray(json)) return null;
   if (isPlanMetadata(json)) return json;
   return null;
@@ -613,7 +613,7 @@ export function toPlanMetadata(json: Prisma.JsonValue | null | undefined): PlanM
  * @returns ExecutionMetadata o null se non valido
  */
 export function toExecutionMetadata(
-  json: Prisma.JsonValue | null | undefined
+  json: unknown
 ): ExecutionMetadata | null {
   if (!json || typeof json !== 'object' || Array.isArray(json)) return null;
   if (isExecutionMetadata(json)) return json;
@@ -627,7 +627,7 @@ export function toExecutionMetadata(
  * @returns CheckpointMetadata o null se non valido
  */
 export function toCheckpointMetadata(
-  json: Prisma.JsonValue | null | undefined
+  json: unknown
 ): CheckpointMetadata | null {
   if (!json || typeof json !== 'object' || Array.isArray(json)) return null;
   if (isCheckpointMetadata(json)) return json;
@@ -680,7 +680,7 @@ export function isWorkoutProgram(value: unknown): value is WorkoutProgram {
  * @returns WorkoutProgram o null se non valido
  */
 export function toWorkoutProgram(
-  json: Prisma.JsonValue | Record<string, unknown> | null | undefined
+  json: unknown
 ): WorkoutProgram | null {
   if (!json || typeof json !== 'object' || Array.isArray(json)) return null;
   if (isWorkoutProgram(json)) return json;
@@ -709,7 +709,7 @@ export function isWorkoutSession(value: unknown): value is WorkoutSession {
  * @returns WorkoutSession o null se non valido
  */
 export function toWorkoutSession(
-  json: Prisma.JsonValue | Record<string, unknown> | null | undefined
+  json: unknown
 ): WorkoutSession | null {
   if (!json || typeof json !== 'object' || Array.isArray(json)) return null;
   if (isWorkoutSession(json)) return json;
@@ -737,7 +737,7 @@ export function isNutritionPlan(value: unknown): value is NutritionPlan {
  * @returns NutritionPlan o null se non valido
  */
 export function toNutritionPlan(
-  json: Prisma.JsonValue | Record<string, unknown> | null | undefined
+  json: unknown
 ): NutritionPlan | null {
   if (!json || typeof json !== 'object' || Array.isArray(json)) return null;
   if (isNutritionPlan(json)) return json;
@@ -751,7 +751,7 @@ export function toNutritionPlan(
  * @returns Array di WorkoutWeek
  */
 export function toWorkoutWeeks(
-  json: Prisma.JsonValue | null | undefined
+  json: unknown
 ): WorkoutWeek[] {
   if (!json || !Array.isArray(json)) return [];
   return (json as unknown[]).filter((item): item is WorkoutWeek => isWorkoutWeek(item));
