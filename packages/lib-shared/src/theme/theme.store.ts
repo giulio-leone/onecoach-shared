@@ -36,55 +36,55 @@ const ZUSTAND_STORAGE_KEY = 'lib-theme-storage';
 // ============================================================================
 
 export const lightColors: ThemeColors = {
-    primary: '#2563EB',
-    primaryDark: '#1E40AF',
-    primaryLight: '#60A5FA',
+    primary: '#6366f1',
+    primaryDark: '#4f46e5',
+    primaryLight: '#818cf8',
 
-    background: '#F9FAFB',
-    surface: '#FFFFFF',
-    card: '#FFFFFF',
+    background: '#fafafa',
+    surface: '#ffffff',
+    card: '#ffffff',
 
-    text: '#111827',
-    textSecondary: '#6B7280',
-    textTertiary: '#9CA3AF',
+    text: '#09090b',
+    textSecondary: '#52525b',
+    textTertiary: '#a1a1aa',
 
-    border: '#E5E7EB',
-    divider: '#F3F4F6',
-    placeholder: '#D1D5DB',
+    border: '#e4e4e7',
+    divider: '#f4f4f5',
+    placeholder: '#d4d4d8',
 
-    success: '#10B981',
-    warning: '#F59E0B',
-    error: '#EF4444',
-    info: '#3B82F6',
+    success: '#10b981',
+    warning: '#f59e0b',
+    error: '#ef4444',
+    info: '#6366f1',
 
     overlay: 'rgba(0, 0, 0, 0.5)',
-    shadow: 'rgba(0, 0, 0, 0.1)',
+    shadow: 'rgba(0, 0, 0, 0.08)',
 };
 
 export const darkColors: ThemeColors = {
-    primary: '#3B82F6',
-    primaryDark: '#60A5FA',
-    primaryLight: '#2563EB',
+    primary: '#818cf8',
+    primaryDark: '#a5b4fc',
+    primaryLight: '#6366f1',
 
-    background: '#111827',
-    surface: '#1F2937',
-    card: '#374151',
+    background: '#09090b',
+    surface: '#18181b',
+    card: '#27272a',
 
-    text: '#F9FAFB',
-    textSecondary: '#D1D5DB',
-    textTertiary: '#9CA3AF',
+    text: '#fafafa',
+    textSecondary: '#d4d4d8',
+    textTertiary: '#a1a1aa',
 
-    border: '#4B5563',
-    divider: '#374151',
-    placeholder: '#6B7280',
+    border: '#3f3f46',
+    divider: '#27272a',
+    placeholder: '#52525b',
 
-    success: '#34D399',
-    warning: '#FBBF24',
-    error: '#F87171',
-    info: '#60A5FA',
+    success: '#34d399',
+    warning: '#fbbf24',
+    error: '#f87171',
+    info: '#818cf8',
 
     overlay: 'rgba(0, 0, 0, 0.7)',
-    shadow: 'rgba(0, 0, 0, 0.3)',
+    shadow: 'rgba(0, 0, 0, 0.32)',
 };
 
 // ============================================================================
@@ -145,7 +145,7 @@ function applyThemeToDOM(actualTheme: ResolvedTheme, themePreference: ThemePrefe
     // Update meta tag
     const metaTag = document.querySelector('meta[name="theme-color"]');
     if (metaTag) {
-        metaTag.setAttribute('content', actualTheme === 'dark' ? '#0f172a' : '#ffffff');
+        metaTag.setAttribute('content', actualTheme === 'dark' ? '#09090b' : '#ffffff');
     }
 }
 
