@@ -92,3 +92,6 @@ export * from './deep-clone';
 // Parse Utilities
 export * from './parse';
 export * from './api-helpers';
+
+// Lazy Service Factory
+export * from './lazy-service';
