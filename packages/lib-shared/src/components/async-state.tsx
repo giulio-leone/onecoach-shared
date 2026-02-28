@@ -35,7 +35,7 @@ export function LoadingState({
   return (
     <div className={`flex min-h-screen items-center justify-center ${className}`}>
       <div className="text-center">
-        <Loader2 className={`mx-auto animate-spin text-blue-500 ${sizeClasses[size]}`} />
+        <Loader2 className={`mx-auto animate-spin text-primary-500 ${sizeClasses[size]}`} />
         {message && <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">{message}</p>}
       </div>
     </div>
@@ -75,7 +75,7 @@ export function ErrorState({
         {!action && onRetry && (
           <button
             onClick={onRetry}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium"
+            className="mt-4 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors text-sm font-medium"
           >
             {retryLabel}
           </button>

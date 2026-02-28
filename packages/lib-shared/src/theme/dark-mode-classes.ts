@@ -18,7 +18,7 @@ export const darkModeClasses = {
         subtle: 'bg-neutral-50 dark:bg-neutral-800/50',
         muted: 'bg-neutral-100 dark:bg-neutral-800',
         hover: 'hover:bg-neutral-50 dark:hover:bg-neutral-800',
-        active: 'bg-blue-50 dark:bg-blue-900/20',
+        active: 'bg-primary-50 dark:bg-primary-900/20',
         selected: 'bg-primary-50 dark:bg-primary-900/20',
         overlay: 'bg-black/40 dark:bg-black/60',
         backdrop: 'bg-black/50 dark:bg-black/70 backdrop-blur-sm',
@@ -105,9 +105,9 @@ export const darkModeClasses = {
             border: 'border-red-200 dark:border-red-800',
         },
         info: {
-            bg: 'bg-blue-50 dark:bg-blue-900/20',
-            text: 'text-blue-700 dark:text-blue-400',
-            border: 'border-blue-200 dark:border-blue-800',
+            bg: 'bg-primary-50 dark:bg-primary-900/20',
+            text: 'text-primary-700 dark:text-primary-400',
+            border: 'border-primary-200 dark:border-primary-800',
         },
     },
 
