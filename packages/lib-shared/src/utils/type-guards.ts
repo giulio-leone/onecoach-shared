@@ -4,12 +4,9 @@
  * Utility type guards for runtime type checking
  */
 
-/**
- * Type guard per verificare se un valore è un Error
- */
-export function isError(error: unknown): error is Error {
-  return error instanceof Error;
-}
+// isError is the SSOT in ./error/core — import for local use and re-export for backward compatibility
+import { isError } from './error/core';
+export { isError };
 
 /**
  * Type guard per verificare se un valore è un oggetto

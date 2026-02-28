@@ -105,6 +105,9 @@ export function getErrorMessage(error: unknown, fallback = 'Errore sconosciuto')
   if (typeof error === 'string') {
     return error;
   }
+  if (typeof error === 'object' && error !== null && 'message' in error && typeof (error as { message: unknown }).message === 'string') {
+    return (error as { message: string }).message;
+  }
   return fallback;
 }
 

@@ -54,21 +54,5 @@ export async function handleApiError(response: Response): Promise<Error> {
   return error;
 }
 
-/**
- * Extract error message from unknown error
- *
- * @param error - Unknown error (Error, string, object, etc.)
- * @returns Error message string
- */
-export function getErrorMessage(error: unknown): string {
-  if (error instanceof Error) {
-    return error.message;
-  }
-  if (typeof error === 'string') {
-    return error;
-  }
-  if (error && typeof error === 'object' && 'message' in error) {
-    return String(error.message);
-  }
-  return 'Errore sconosciuto';
-}
+// getErrorMessage SSOT is in ./error/core — re-export for backward compatibility
+export { getErrorMessage } from './error/core';
