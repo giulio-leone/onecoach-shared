@@ -554,7 +554,7 @@ export function toExerciseArrayTyped(json: Prisma.JsonValue | null | undefined):
         exerciseJson.sets.length > 0
       ) {
         // Migrazione legacy: converti sets flat in un singolo SetGroup
-        const legacySets = (exerciseJson.sets as unknown[]).map((set) => setJsonToExerciseSet(set as SetJson));
+        const legacySets = (exerciseJson.sets as unknown[]).map((set: any) => setJsonToExerciseSet(set as SetJson));
         const baseSet = legacySets[0] || {
           reps: undefined,
           weight: null,

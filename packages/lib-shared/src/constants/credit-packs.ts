@@ -78,7 +78,7 @@ export function getCreditPackPricing(): CreditPackPricing[] {
  * Recupera rapidamente il price ID di Stripe per un dato numero di crediti.
  */
 export function getCreditPackPriceId(credits: number): string | null {
-  const record = CREDIT_PACK_RECORDS.find((pack) => pack.credits === credits);
+  const record = CREDIT_PACK_RECORDS.find((pack: any) => pack.credits === credits);
   if (!record) {
     return null;
   }
@@ -89,7 +89,7 @@ export function getCreditPackPriceId(credits: number): string | null {
  * Trova la definizione del pack partendo dai crediti.
  */
 export function findCreditPackOption(credits: number): CreditPackOption | undefined {
-  return CREDIT_PACK_OPTIONS.find((pack) => pack.credits === credits);
+  return CREDIT_PACK_OPTIONS.find((pack: any) => pack.credits === credits);
 }
 
 /**

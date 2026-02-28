@@ -16,7 +16,7 @@ export function deepCloneWithNewIds(obj: unknown): unknown {
   }
 
   if (Array.isArray(obj)) {
-    return obj.map((item) => deepCloneWithNewIds(item));
+    return obj.map((item: any) => deepCloneWithNewIds(item));
   }
 
   if (typeof obj === 'object') {

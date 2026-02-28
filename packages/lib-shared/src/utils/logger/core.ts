@@ -170,7 +170,7 @@ export class Logger {
 
       if (Array.isArray(value)) {
         if (depth >= this.maxObjectDepth) return '[array]';
-        const limited = value.slice(0, this.maxArrayLength).map((item) => sanitizeValue(item, depth + 1));
+        const limited = value.slice(0, this.maxArrayLength).map((item: any) => sanitizeValue(item, depth + 1));
         if (value.length > this.maxArrayLength) {
           limited.push(`[+${value.length - this.maxArrayLength} more items]`);
         }

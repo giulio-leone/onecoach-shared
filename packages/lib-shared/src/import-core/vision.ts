@@ -16,12 +16,8 @@ import { createOpenAI } from '@ai-sdk/openai';
 import type { VisionParseParams, ImportFileType } from './types';
 
 // Lazy-loaded to avoid circular dependency: lib-shared → lib-core → lib-shared
-let _logger: { info: (...args: unknown[]) => void; warn: (...args: unknown[]) => void } | null = null;
-let _creditService: {
-  checkCredits: (userId: string, amount: number) => Promise<boolean>;
-  consumeCredits: (params: Record<string, unknown>) => Promise<void>;
-  addCredits: (params: Record<string, unknown>) => Promise<void>;
-} | null = null;
+let _logger: any = null;
+let _creditService: any = null;
 
 async function getLibCore(): Promise<{ logger: typeof _logger; creditService: typeof _creditService }> {
   if (!_logger || !_creditService) {

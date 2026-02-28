@@ -30,7 +30,7 @@ const SUBSCRIPTION_PLAN_RECORDS: SubscriptionPlanPricing[] = [
 export function getSubscriptionPriceId(plan: string): string | null {
   if (plan === 'FREE') return '';
 
-  const record = SUBSCRIPTION_PLAN_RECORDS.find((r) => r.plan === plan);
+  const record = SUBSCRIPTION_PLAN_RECORDS.find((r: any) => r.plan === plan);
   if (!record) return null;
 
   // Access process.env only if available (server-side)
