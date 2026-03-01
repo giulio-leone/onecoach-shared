@@ -140,8 +140,8 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
-    "@giulio-leone/types": "workspace:*",
-    "@giulio-leone/lib-design-system": "workspace:*"
+    "@giulio-leone/lib-design-system": "workspace:*",
+    "@giulio-leone/types": "workspace:*"
   },
   "peerDependencies": {
     "@prisma/client": ">=5.0.0",
@@ -156,7 +156,7 @@
     }
   },
   "devDependencies": {
-    "@prisma/client": "^7.2.0",
+    "@prisma/client": "^7.4.2",
     "tsup": "^8.4.0",
     "typescript": "^5.9.3"
   }
