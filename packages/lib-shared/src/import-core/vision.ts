@@ -11,8 +11,6 @@
  * @module lib-import-core/vision
  */
 
-import { streamText, Output } from 'ai';
-import { createOpenAI } from '@ai-sdk/openai';
 import type { VisionParseParams, ImportFileType } from './types';
 
 // Lazy-loaded to avoid circular dependency: lib-shared → lib-core → lib-shared
@@ -51,8 +49,8 @@ interface VisionModelConfig {
 }
 
 async function getVisionModelConfig(fileType: ImportFileType): Promise<VisionModelConfig> {
-  // Dynamic import to avoid circular dependency: lib-shared → lib-ai → lib-shared
-  const { AIProviderConfigService, AIFrameworkConfigService, FrameworkFeature } = await import('@giulio-leone/lib-ai');
+  // Dynamic import to avoid circular dependency: lib-shared → ai-config → lib-shared
+  const { AIProviderConfigService, AIFrameworkConfigService, FrameworkFeature } = await import('@giulio-leone/ai-config');
   type ImportModelsConfig = Awaited<ReturnType<typeof AIFrameworkConfigService.getConfig>>['config'] & {
     imageModel?: string;
     pdfModel?: string;
@@ -227,32 +225,41 @@ interface AICallParams<T> {
 
 async function callVisionAI<T>(params: AICallParams<T>): Promise<T> {
   const { contentBase64, mimeType, prompt, schema, modelId, apiKey } = params;
+  const dataUrl = base64ToDataUrl(contentBase64, mimeType);
 
-  const openai = createOpenAI({
-    apiKey,
-    baseURL: 'https://openrouter.ai/api/v1',
+  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
     headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
       'HTTP-Referer': process.env.OPENROUTER_SITE_URL || 'https://onecoach.ai',
       'X-Title': process.env.OPENROUTER_SITE_NAME || 'onecoach AI',
     },
+    body: JSON.stringify({
+      model: modelId,
+      max_tokens: VISION_CONFIG.MAX_OUTPUT_TOKENS,
+      response_format: { type: 'json_object' },
+      messages: [
+        { role: 'user', content: [
+          { type: 'text', text: `${prompt}\n\nRispondi SOLO con JSON valido.` },
+          { type: 'image_url', image_url: { url: dataUrl } },
+        ] },
+      ],
+    }),
+    signal: AbortSignal.timeout(VISION_CONFIG.TIMEOUT_MS),
   });
 
-  const model = openai(modelId) as unknown as Parameters<typeof streamText>[0]['model'];
-  const dataUrl = base64ToDataUrl(contentBase64, mimeType);
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => 'Unknown error');
+    throw new Error(`OpenRouter API error ${response.status}: ${errorText}`);
+  }
 
-  const streamResult = streamText({
-    model,
-    output: Output.object({ schema }),
-    messages: [{ role: 'user', content: [{ type: 'text', text: prompt }, { type: 'image', image: dataUrl }] }],
-    abortSignal: AbortSignal.timeout(VISION_CONFIG.TIMEOUT_MS),
-  });
+  const data = await response.json();
+  const content = data?.choices?.[0]?.message?.content;
+  if (!content) throw new Error('AI returned empty response');
 
-  for await (const _ of streamResult.partialOutputStream) {}
-
-  const validated = await streamResult.output;
-  if (!validated) throw new Error('AI returned empty response');
-
-  return validated;
+  const parsed = JSON.parse(content);
+  return schema.parse(parsed);
 }
 
 async function callTextAI<T>(params: AICallParams<T>): Promise<T> {
@@ -266,29 +273,36 @@ async function callTextAI<T>(params: AICallParams<T>): Promise<T> {
     return callVisionAI(params);
   }
 
-  const openai = createOpenAI({
-    apiKey,
-    baseURL: 'https://openrouter.ai/api/v1',
+  const fullPrompt = `${prompt}\n\nDATA:\n\`\`\`\n${textContent.substring(0, 50000)}\n\`\`\`\n\nRispondi SOLO con JSON valido.`;
+
+  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
     headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
       'HTTP-Referer': process.env.OPENROUTER_SITE_URL || 'https://onecoach.ai',
       'X-Title': process.env.OPENROUTER_SITE_NAME || 'onecoach AI',
     },
+    body: JSON.stringify({
+      model: modelId,
+      max_tokens: VISION_CONFIG.MAX_OUTPUT_TOKENS,
+      response_format: { type: 'json_object' },
+      messages: [
+        { role: 'user', content: fullPrompt },
+      ],
+    }),
+    signal: AbortSignal.timeout(VISION_CONFIG.TIMEOUT_MS),
   });
 
-  const model = openai(modelId) as unknown as Parameters<typeof streamText>[0]['model'];
-  const fullPrompt = `${prompt}\n\nDATA:\n\`\`\`\n${textContent.substring(0, 50000)}\n\`\`\``;
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => 'Unknown error');
+    throw new Error(`OpenRouter API error ${response.status}: ${errorText}`);
+  }
 
-  const streamResult = streamText({
-    model,
-    output: Output.object({ schema }),
-    prompt: fullPrompt,
-    abortSignal: AbortSignal.timeout(VISION_CONFIG.TIMEOUT_MS),
-  });
+  const data = await response.json();
+  const content = data?.choices?.[0]?.message?.content;
+  if (!content) throw new Error('AI returned empty response');
 
-  for await (const _ of streamResult.partialOutputStream) {}
-
-  const validated = await streamResult.output;
-  if (!validated) throw new Error('AI returned empty response');
-
-  return validated;
+  const parsed = JSON.parse(content);
+  return schema.parse(parsed);
 }
